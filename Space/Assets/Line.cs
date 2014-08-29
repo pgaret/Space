@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Triangle : MonoBehaviour {
+public class Line : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,7 +11,7 @@ public class Triangle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		transform.Rotate (Vector3.right * Time.deltaTime);
+		transform.localScale += new Vector3(.1F, 0, 0);
 	
 	}
 }
