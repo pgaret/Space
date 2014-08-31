@@ -4,58 +4,76 @@ using System.Collections;
 public class Play : MonoBehaviour {
 
 	public Transform triangle;
+	public Transform onTop;
+	
+	public Transform fireMeter;
+	public Transform earthMeter;
+	public Transform waterMeter;
+	
+	public Transform topCorner;
+	public Transform leftCorner;
+	public Transform rightCorner;
+	
 	public GUIStyle fire;
 	public GUIStyle water;
 	public GUIStyle earth;
 
-	float waterScale = 0;
-	float earthScale = 0;
-	float fireScale = 0;
+	bool waterBool = false;
+	bool earthBool = false;
+	bool fireBool = false;
 
 	float scale = .1F;
 	string text = "None";
-	
-	int earthInt = 0;
-	int waterInt = 0;
-	int fireInt = 0;
-	
-	bool earthBool = false;
-	bool waterBool = false;
-	bool fireBool = false;
 
 	// Use this for initialization
 	void Start ()
 	{
+		Instantiate(triangle, new Vector2(Screen.width / 3, Screen.height / 3), Quaternion.identity);
+		Transform test = Instantiate (onTop, new Vector2(0, 0), Quaternion.identity) as Transform;
+		
 		Screen.orientation = ScreenOrientation.Portrait;
 	}
 	
 	void OnGUI()
-	{
-		if (GUI.RepeatButton(new Rect(-Screen.width / 70, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20), " ", earth))
+	{	
+		Rect waterRect = new Rect(-Screen.width / 70, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
+		Rect fireRect = new Rect(Screen.width * 3.27f / 10, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
+		Rect earthRect = new Rect(Screen.width * 2f / 3, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
+		
+		GUI.Box (waterRect, "", water);
+		GUI.Box (earthRect, "", earth);
+		GUI.Box (fireRect, "", fire);
+		
+		foreach (Touch t in Input.touches)
 		{
-			text = "Earth";
-			earthInt += 1;
-			earthBool = true;
+			Vector3 position = t.position;
+			position.y = Screen.height - position.y;
+			if (waterRect.Contains(position))
+			{
+				GameObject.FindGameObjectWithTag("Water").GetComponent<playercontrol>().activate = true;
+				waterBool = true;
+			}
+			if (!waterRect.Contains(position) && waterBool == false) GameObject.FindGameObjectWithTag("Water").GetComponent<playercontrol>().activate = false;
+			if (earthRect.Contains(position))
+			{
+				GameObject.FindGameObjectWithTag("Earth").GetComponent<playercontrol>().activate = true;
+				earthBool = true;
+			}
+			if (!earthRect.Contains (position) && earthBool == false) GameObject.FindGameObjectWithTag("Earth").GetComponent<playercontrol>().activate = false;
+			if (fireRect.Contains(position))
+			{
+				GameObject.FindGameObjectWithTag("Fire").GetComponent<playercontrol>().activate = true;
+				fireBool = true;
+			}
+			if (!fireRect.Contains(position) && fireBool == false) GameObject.FindGameObjectWithTag("Fire").GetComponent<playercontrol>().activate = false;
 		}
-		else earthBool = false;
-		if (GUI.RepeatButton(new Rect(Screen.width * 3.27f / 10, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20), " ", fire))
+		
+		if (Input.touchCount == 0)
 		{
-			text = "Fire";
-			fireInt += 1;
-			fireBool = true;
+			GameObject.FindGameObjectWithTag("Water").GetComponent<playercontrol>().activate = false;
+			GameObject.FindGameObjectWithTag("Earth").GetComponent<playercontrol>().activate = false;
+			GameObject.FindGameObjectWithTag("Fire").GetComponent<playercontrol>().activate = false;
 		}
-		else fireBool = false;
-		if (GUI.RepeatButton(new Rect(Screen.width * 2f / 3, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20), " ", water))
-		{
-			text = "Water";
-			waterInt += 1;
-			waterBool = true;
-		}
-		else waterBool = false;
-	
-		GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-		GUI.skin.box.fontSize = 48;
-		GUI.Box (new Rect(Screen.width / 4, Screen.height / 4, Screen.width / 2, Screen.height / 2), earthInt.ToString()+" "+fireInt.ToString()+" "+waterInt.ToString());
 	}
 	
 	
@@ -63,11 +81,6 @@ public class Play : MonoBehaviour {
 	void Update ()
 	{
 //		triangle.transform.Rotate(Vector3.forward * Time.deltaTime * 10);
-		
-//		if (waterScale == 5) triangle.transform.localScale += new Vector3(.1F, .1F, 0);
-		
-		if (earthBool == false && earthInt > 0) earthInt -= 1;
-		if (fireBool == false && fireInt > 0) fireInt -= 1;
-		if (waterBool == false && waterInt > 0) waterInt -= 1;
+
 	}
 }

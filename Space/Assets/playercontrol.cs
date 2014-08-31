@@ -7,6 +7,7 @@ public class playercontrol : MonoBehaviour {
 	public Transform last;
 	public float speed;
 	public float slow;
+	public bool activate = false;
 	// Use this for initialization
 	void Start () {
 	
@@ -14,7 +15,7 @@ public class playercontrol : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.Space)) {	
+		if (activate == true || Input.GetKey(KeyCode.Space)) {	
 			float step = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards (transform.position, next.position, step);
 		} else 
