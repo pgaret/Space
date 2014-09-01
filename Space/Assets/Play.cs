@@ -4,7 +4,6 @@ using System.Collections;
 public class Play : MonoBehaviour {
 
 	public GameObject triangle;
-	public Transform onTop;
 	
 	public Transform fireMeter;
 	public Transform earthMeter;
@@ -18,19 +17,16 @@ public class Play : MonoBehaviour {
 	public GUIStyle water;
 	public GUIStyle earth;
 
-	Transform test;
-
 	bool waterBool = false;
 	bool earthBool = false;
 	bool fireBool = false;
-
-	float scale = .1F;
-	string text = "None";
 
 	// Use this for initialization
 	void Start ()
 	{
 		Screen.orientation = ScreenOrientation.Portrait;
+		Instantiate(triangle, new Vector3(0, 0, 0), Quaternion.identity);
+		triangle = GameObject.FindGameObjectWithTag("Triangle");
 	}
 	
 	void OnGUI()
@@ -64,8 +60,12 @@ public class Play : MonoBehaviour {
 				GameObject.FindGameObjectWithTag("Fire").GetComponent<playercontrol>().activate = true;
 				fireBool = true;
 			}
-			if (!fireRect.Contains(position) && fireBool == false) GameObject.FindGameObjectWithTag("Fire").GetComponent<playercontrol>().activate = false;
+			if (!fireRect.Contains(position) && fireBool == false) GameObject.FindGameObjectWithTag("Fire").GetComponent<playercontrol>().activate = false;	
 		}
+		
+		waterBool = false;
+		fireBool = false;
+		earthBool = false;
 		
 		if (Input.touchCount == 0)
 		{
@@ -79,8 +79,8 @@ public class Play : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		triangle.transform.Rotate(Vector3.forward * Time.deltaTime * 10);
-		triangle.transform.localScale += new Vector3(.001f, .001f, 0);
+//		triangle.transform.Rotate(Vector3.forward * Time.deltaTime * 10);
+		triangle.transform.localScale += new Vector3(.0002f, .0002f, 0);
 
 	}
 }
