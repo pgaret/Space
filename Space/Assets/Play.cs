@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Play : MonoBehaviour {
 
-	public Transform triangle;
+	public GameObject triangle;
 	public Transform onTop;
 	
 	public Transform fireMeter;
@@ -18,6 +18,8 @@ public class Play : MonoBehaviour {
 	public GUIStyle water;
 	public GUIStyle earth;
 
+	Transform test;
+
 	bool waterBool = false;
 	bool earthBool = false;
 	bool fireBool = false;
@@ -28,9 +30,6 @@ public class Play : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		Instantiate(triangle, new Vector2(Screen.width / 3, Screen.height / 3), Quaternion.identity);
-		Transform test = Instantiate (onTop, new Vector2(0, 0), Quaternion.identity) as Transform;
-		
 		Screen.orientation = ScreenOrientation.Portrait;
 	}
 	
@@ -80,7 +79,8 @@ public class Play : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-//		triangle.transform.Rotate(Vector3.forward * Time.deltaTime * 10);
+		triangle.transform.Rotate(Vector3.forward * Time.deltaTime * 10);
+		triangle.transform.localScale += new Vector3(.001f, .001f, 0);
 
 	}
 }
