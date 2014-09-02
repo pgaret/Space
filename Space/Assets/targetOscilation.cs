@@ -33,7 +33,8 @@ public class targetOscilation : MonoBehaviour {
 		curr_time += Time.deltaTime;
 
 		// check if random time has been met
-		if (goal_time - curr_time >= 0f) 
+
+		if (goal_time - curr_time >= 0f)
 		{
 			if(up_dir)
 			{
@@ -49,7 +50,7 @@ public class targetOscilation : MonoBehaviour {
 		else
 		{
 			up_dir = !up_dir;
-			goal_time = Random.Range(1f,3f);
+			goal_time = Random.Range(.25f,2f);
 			curr_time = 0f; 	
 		}
 	}
