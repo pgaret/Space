@@ -20,12 +20,15 @@ public class Play : MonoBehaviour {
 	bool waterBool = false;
 	bool earthBool = false;
 	bool fireBool = false;
+	
+	Vector3 screenSize;
 
 	// Use this for initialization
 	void Start ()
 	{
+		screenSize = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 		Screen.orientation = ScreenOrientation.Portrait;
-		Instantiate(triangle, new Vector3(0, 0, 0), Quaternion.identity);
+		Instantiate(triangle, new Vector3(-screenSize.x / 8, screenSize.y / 4), Quaternion.identity);
 		triangle = GameObject.FindGameObjectWithTag("Triangle");
 	}
 	
@@ -80,7 +83,7 @@ public class Play : MonoBehaviour {
 	void Update ()
 	{
 //		triangle.transform.Rotate(Vector3.forward * Time.deltaTime * 10);
-		triangle.transform.localScale += new Vector3(.0002f, .0002f, 0);
-
+		triangle.transform.localScale += new Vector3(.002f, .002f, 0);
+		Debug.Log (triangle.renderer.bounds.size);
 	}
 }
