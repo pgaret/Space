@@ -7,6 +7,10 @@ public class score_check : MonoBehaviour {
 	// so that it is more compatable
 
 	public Transform bar;
+	public Transform orange;
+	public Transform blue;
+	public Transform green;
+	
 	Transform bar_col;
 	Transform one;
 	Transform two;
@@ -25,7 +29,9 @@ public class score_check : MonoBehaviour {
 		{
 			one.particleSystem.enableEmission=true;
 			two.particleSystem.enableEmission=true;
-			print ("collision");
+			if (transform.parent.parent.name == "target_green") Instantiate (green);
+			if (transform.parent.parent.name == "target_blue") Instantiate(blue);
+			if (transform.parent.parent.name == "target_orange") Instantiate(orange);
 
 		} 
 		else 

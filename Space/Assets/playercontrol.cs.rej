@@ -1,0 +1,23 @@
+diff a/Space/Assets/playercontrol.cs b/Space/Assets/playercontrol.cs	(rejected hunks)
+@@ -57,17 +57,17 @@
+ 		}
+ 
+ 		if (Input.GetKey (KeyCode.X)) {
+-				
++			orange.position = Vector3.MoveTowards (orange.position, orange_next.position, step_up);
+ 		} 
+ 		else {
+-
++			orange.position = Vector3.MoveTowards (orange.position, orange_last.position, step_down);
+ 		}
+ 
+ 		if (Input.GetKey (KeyCode.C)) {
+-				
++			green.position = Vector3.MoveTowards (green.position, green_next.position, step_up);
+ 		} 
+ 		else {
+-		
++			green.position = Vector3.MoveTowards (green.position, green_last.position, step_down);
+ 		}
+ 	}
+ }
