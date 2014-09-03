@@ -54,7 +54,7 @@ public class playercontrol : MonoBehaviour {
 		float step_down = slow * Time.deltaTime;
 
 
-		if (Input.GetKey (KeyCode.Z)) { print ("z");
+		if (Input.GetKey (KeyCode.Z)) {
 			blue.position = Vector3.MoveTowards (blue.position, blue_next.position, step_up);
 		} 
 		else {

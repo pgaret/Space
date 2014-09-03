@@ -15,6 +15,12 @@ public class Play : MonoBehaviour {
 	public GUIStyle fire;
 	public GUIStyle water;
 	public GUIStyle earth;
+	
+	public Font font;
+	
+	private int startingPop = 100;
+	private int minPop = 50;
+	private int currentPop;
 
 //	bool waterBool = false;
 //	bool earthBool = false;
@@ -25,6 +31,13 @@ public class Play : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		for (int i = 0; i < startingPop; i++)
+		{
+			int random = Random.Range (0, 3);
+			if (random == 0) Instantiate (orangeTriangle);
+			if (random == 1) Instantiate (blueTriangle);
+			if (random == 2) Instantiate (greenTriangle);
+		}
 		GameObject triangle = GameObject.FindGameObjectWithTag("Triangle");
 	}
 	
@@ -38,7 +51,8 @@ public class Play : MonoBehaviour {
 		GUI.Box (earthRect, "", earth);
 		GUI.Box (fireRect, "", fire);
 		
-		GUI.Box (new Rect(Screen.width * 3 / 4, Screen.height / 10, Screen.width / 4, Screen.height / 10), "Time: "+Mathf.RoundToInt(Time.time).ToString());
+		GUI.skin.box.font = font;
+		GUI.Box (new Rect(Screen.width / 4, Screen.height / 10, Screen.width / 4, Screen.height / 10), "Current Pop: "+currentPop.ToString()+" Max Pop: "+minPop.ToString()+" Time: "+Mathf.RoundToInt(Time.time).ToString());
 		
 //		foreach (Touch t in Input.touches)
 //		{
@@ -81,5 +95,7 @@ public class Play : MonoBehaviour {
 	void Update ()
 	{
 		transform.Rotate(Vector3.forward * Time.deltaTime * 10);
+		
+		currentPop = GameObject.FindGameObjectsWithTag("Inhabitant").Length;
 	}
 }
