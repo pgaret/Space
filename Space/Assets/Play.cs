@@ -18,6 +18,8 @@ public class Play : MonoBehaviour {
 
 	public GUIStyle style;
 	
+	public AudioSource clip;
+	
 	private int startingPop = 100;
 	private int minPop;
 	private int currentPop;
@@ -45,14 +47,14 @@ public class Play : MonoBehaviour {
 	void OnGUI()
 	{	
 		Rect waterRect = new Rect(-Screen.width / 70, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
-		Rect fireRect = new Rect(Screen.width * 3.27f / 10, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
-		Rect earthRect = new Rect(Screen.width * 2f / 3, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
+		Rect earthRect = new Rect(Screen.width * 3.27f / 10, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
+		Rect fireRect = new Rect(Screen.width * 2f / 3, Screen.height * 3.5f / 5, Screen.width * 18.3f / 50, Screen.height * 9 / 20);
 		
 		GUI.Box (waterRect, "", water);
 		GUI.Box (earthRect, "", earth);
 		GUI.Box (fireRect, "", fire);
 
-		GUI.Box (new Rect(Screen.width / 20, Screen.height / 25, Screen.width / 3, Screen.height / 15), "Current Pop: "+currentPop.ToString()+" Max Pop: "+minPop.ToString()+" Time: "+Mathf.RoundToInt(Time.time).ToString(), style);
+		GUI.Box (new Rect(Screen.width / 20, Screen.height / 25, Screen.width / 3, Screen.height / 15), "Current Pop: "+currentPop.ToString()+" Min Pop: "+minPop.ToString()+" Time: "+Mathf.RoundToInt(Time.time).ToString(), style);
 		
 //		foreach (Touch t in Input.touches)
 //		{
@@ -94,6 +96,7 @@ public class Play : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		
 		if (Time.timeSinceLevelLoad == 0) Instantiate (blueTriangle);
 		if (Time.timeSinceLevelLoad == .1f) Instantiate (blueTriangle);
 		if (Time.timeSinceLevelLoad == .2f) Instantiate (blueTriangle);
