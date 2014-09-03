@@ -15,12 +15,16 @@ public class Play : MonoBehaviour {
 	public GUIStyle fire;
 	public GUIStyle water;
 	public GUIStyle earth;
-	
-	public Font font;
+
+	public GUIStyle style;
 	
 	private int startingPop = 100;
-	private int minPop = 50;
+	private int minPop;
 	private int currentPop;
+	
+	private float timer;
+	private int counter = 0;
+	private bool lost = false;
 
 //	bool waterBool = false;
 //	bool earthBool = false;
@@ -31,13 +35,10 @@ public class Play : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		for (int i = 0; i < startingPop; i++)
-		{
-			int random = Random.Range (0, 3);
-			if (random == 0) Instantiate (orangeTriangle);
-			if (random == 1) Instantiate (blueTriangle);
-			if (random == 2) Instantiate (greenTriangle);
-		}
+		if (Application.loadedLevel == 1) minPop = 1;
+		if (Application.loadedLevel == 2) minPop = 5;
+		if (Application.loadedLevel == 3) minPop = 10;
+		timer = Time.time;
 		GameObject triangle = GameObject.FindGameObjectWithTag("Triangle");
 	}
 	
@@ -50,9 +51,8 @@ public class Play : MonoBehaviour {
 		GUI.Box (waterRect, "", water);
 		GUI.Box (earthRect, "", earth);
 		GUI.Box (fireRect, "", fire);
-		
-		GUI.skin.box.font = font;
-		GUI.Box (new Rect(Screen.width / 4, Screen.height / 10, Screen.width / 4, Screen.height / 10), "Current Pop: "+currentPop.ToString()+" Max Pop: "+minPop.ToString()+" Time: "+Mathf.RoundToInt(Time.time).ToString());
+
+		GUI.Box (new Rect(Screen.width / 20, Screen.height / 25, Screen.width / 3, Screen.height / 15), "Current Pop: "+currentPop.ToString()+" Max Pop: "+minPop.ToString()+" Time: "+Mathf.RoundToInt(Time.time).ToString(), style);
 		
 //		foreach (Touch t in Input.touches)
 //		{
@@ -94,8 +94,34 @@ public class Play : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		transform.Rotate(Vector3.forward * Time.deltaTime * 10);
+		if (Time.timeSinceLevelLoad == 0) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .1f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .2f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .3f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .4f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .5f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .6f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .7f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .8f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == .9f) Instantiate (blueTriangle);
+		if (Time.timeSinceLevelLoad == 1f) Instantiate (blueTriangle);
 		
+		if (Time.time - timer >= .75 && counter < startingPop)
+		{
+			int random = Random.Range (0, Application.loadedLevel);
+			if (random == 0) Instantiate (blueTriangle);
+			if (random == 1) Instantiate (orangeTriangle);
+			if (random == 2) Instantiate (greenTriangle);
+			counter += 1;
+		}
+		
+		transform.Rotate(Vector3.forward * Time.deltaTime * 10);		
 		currentPop = GameObject.FindGameObjectsWithTag("Inhabitant").Length;
+		
+		if (currentPop == 0 && Time.timeSinceLevelLoad > 2.0f)
+		{
+			Application.LoadLevel(4);
+			PlayerPrefs.SetInt("My Time", Mathf.RoundToInt(Time.timeSinceLevelLoad));
+		}
 	}
 }

@@ -37,17 +37,17 @@ public class score_check : MonoBehaviour {
 		{
 			one.particleSystem.enableEmission=true;
 			two.particleSystem.enableEmission=true;
-			if (transform.parent.parent.name == "target_green" && Time.time - greenTimer > .25f)
+			if (transform.parent.parent.name == "target_green" && Time.time - greenTimer > .1f)
 			{
 				Instantiate (green);
 				greenTimer = Time.time;
 			}
-			if (transform.parent.parent.name == "target_blue" && Time.time - blueTimer > .25f)
+			if (transform.parent.parent.name == "target_blue" && Time.time - blueTimer > .1f)
 			{
 				Instantiate(blue);
 				blueTimer = Time.time;
 			}
-			if (transform.parent.parent.name == "target_orange" && Time.time - orangeTimer > .25f)
+			if (transform.parent.parent.name == "target_orange" && Time.time - orangeTimer > .1f)
 			{
 				Instantiate(orange);
 				orangeTimer = Time.time;

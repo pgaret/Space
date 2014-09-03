@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour {
 	{
 		Rect rect1 = new Rect(Screen.width * 2 / 5, Screen.height / 5, Screen.width / 8, Screen.height / 7);
 		Rect rect2 = new Rect(Screen.width * 2 / 5, Screen.height * 2.25f / 5, Screen.width / 8, Screen.height / 7);
-		Rect rect3 = new Rect(Screen.width * 2 / 5, Screen.height * 3.5f / 5, Screen.width / 8, Screen.height / 8);
+		Rect rect3 = new Rect(Screen.width * 2 / 5, Screen.height * 3.5f / 5, Screen.width / 8, Screen.height / 7);
 		
 		if (onGUI == true)
 		{
