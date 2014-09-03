@@ -25,6 +25,11 @@ public class playercontrol : MonoBehaviour {
 	public float speed;
 	public float slow;
 
+	public Transform cheat1;
+	public Transform cheat2;
+	public Transform cheat3;
+	public float cheatN;
+
 	// not quite sure what this is
 	public bool activate = false;
 
@@ -69,5 +74,12 @@ public class playercontrol : MonoBehaviour {
 		else {
 			green.position = Vector3.MoveTowards (green.position, green_last.position, step_down);
 		}
+		// CHEAT MODE
+		if (Input.GetKey (KeyCode.Space)) {	
+			blue.position = Vector3.MoveTowards (blue.position, cheat1.position, step_up*cheatN);
+			orange.position = Vector3.MoveTowards(orange.position, cheat2.position,step_up*cheatN);
+			green.position = Vector3.MoveTowards(green.position, cheat3.position,step_up*cheatN);
+
+		} 
 	}
 }

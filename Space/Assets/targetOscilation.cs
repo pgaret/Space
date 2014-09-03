@@ -11,7 +11,7 @@ public class targetOscilation : MonoBehaviour {
 	public Transform last;
 
 	bool up_dir;
-	float temp = 1.75f; // for speed of thing
+	float temp = 0.75f; // for speed of thing
 
 	// new vecs higher
 	Vector3 next2 = new Vector3();
